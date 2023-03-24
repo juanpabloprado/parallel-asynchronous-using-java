@@ -3,12 +3,13 @@ package com.learnjava.service;
 import com.learnjava.domain.Product;
 import com.learnjava.domain.ProductInfo;
 import com.learnjava.domain.Review;
+
 import static com.learnjava.util.CommonUtil.stopWatch;
 import static com.learnjava.util.LoggerUtil.log;
 
 public class ProductService {
-    private ProductInfoService productInfoService;
-    private ReviewService reviewService;
+    private final ProductInfoService productInfoService;
+    private final ReviewService reviewService;
 
     public ProductService(ProductInfoService productInfoService, ReviewService reviewService) {
         this.productInfoService = productInfoService;
@@ -22,7 +23,7 @@ public class ProductService {
         Review review = reviewService.retrieveReviews(productId); // blocking call
 
         stopWatch.stop();
-        log("Total Time Taken : "+ stopWatch.getTime());
+        log("Total Time Taken : " + stopWatch.getTime());
         return new Product(productId, productInfo, review);
     }
 

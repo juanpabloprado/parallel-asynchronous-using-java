@@ -12,8 +12,8 @@ import lombok.NoArgsConstructor;
 public class ProductOption {
     private Integer productionOptionId;
     private String size;
-    private String  color;
-    private double  price;
+    private String color;
+    private double price;
     private Inventory inventory;
 
     public ProductOption(Integer productionOptionId, String size, String color, double price) {

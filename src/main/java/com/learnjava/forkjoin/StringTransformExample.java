@@ -16,20 +16,20 @@ public class StringTransformExample {
         stopWatch.start();
         List<String> resultList = new ArrayList<>();
         List<String> names = DataSet.namesList();
-        log("names : "+ names);
+        log("names : " + names);
 
-        names.forEach((name)->{
+        names.forEach((name) -> {
             String newValue = addNameLengthTransform(name);
             resultList.add(newValue);
         });
         stopWatch.stop();
-        log("Final Result : "+ resultList);
-        log("Total Time Taken : "+ stopWatch.getTime());
+        log("Final Result : " + resultList);
+        log("Total Time Taken : " + stopWatch.getTime());
     }
 
 
     private static String addNameLengthTransform(String name) {
         delay(500);
-        return name.length()+" - "+name ;
+        return name.length() + " - " + name;
     }
 }
