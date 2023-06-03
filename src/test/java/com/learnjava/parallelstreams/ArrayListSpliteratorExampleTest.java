@@ -2,7 +2,6 @@ package com.learnjava.parallelstreams;
 
 import com.learnjava.util.DataSet;
 import org.junit.jupiter.api.RepeatedTest;
-import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;

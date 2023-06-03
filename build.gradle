@@ -18,6 +18,7 @@ configurations {
 
 test {
     useJUnitPlatform()
+//    jvmArgs '-Djava.util.concurrent.ForkJoinPool.common.parallelism=20'
 }
 
 dependencies {
