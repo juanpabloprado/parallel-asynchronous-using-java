@@ -14,7 +14,7 @@ import static com.learnjava.util.LoggerUtil.log;
 public class ProductServiceUsingCompletableFuture {
     private final ProductInfoService productInfoService;
     private final ReviewService reviewService;
-    private InventoryService inventoryService;
+    private final InventoryService inventoryService;
 
     public ProductServiceUsingCompletableFuture(ProductInfoService productInfoService, ReviewService reviewService, InventoryService inventoryService) {
         this.productInfoService = productInfoService;
@@ -84,10 +84,22 @@ public class ProductServiceUsingCompletableFuture {
                 });
 
         CompletableFuture<Review> reviewCompletableFuture = CompletableFuture
-                .supplyAsync(() -> reviewService.retrieveReviews(productId));
+                .supplyAsync(() -> reviewService.retrieveReviews(productId))
+                .exceptionally(throwable -> {
+                    log("Handle the exception in reviewService: " + throwable.getMessage());
+                    return Review.builder()
+                            .noOfReviews(0).overallRating(0.0)
+                            .build();
+                });
 
         Product product = productInfoCompletableFuture
                 .thenCombine(reviewCompletableFuture, (productInfo, review) -> new Product(productId, productInfo, review))
+                .whenComplete((productInfo, throwable) -> {
+                    log("Inside WhenComplete: " + productInfo);
+                    if (throwable!= null) {
+                        log("The exception is: " + throwable);
+                    }
+                })
                 .join();
 
         stopWatch.stop();
@@ -108,10 +120,15 @@ public class ProductServiceUsingCompletableFuture {
                 .stream()
                 .map(productOption -> CompletableFuture
                         .supplyAsync(() -> inventoryService.retrieveInventory(productOption))
+                        .exceptionally(throwable -> {
+                            log("Exception in Inventory Service : " + throwable.getMessage());
+                            return Inventory.builder().count(1).build();
+                        })
                         .thenApply(inventory -> {
                             productOption.setInventory(inventory);
                             return productOption;
-                        })).toList();
+                        })
+                ).toList();
         return productOptions.stream().map(CompletableFuture::join).toList();
     }
 

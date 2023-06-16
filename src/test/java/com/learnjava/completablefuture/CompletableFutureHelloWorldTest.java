@@ -47,6 +47,38 @@ class CompletableFutureHelloWorldTest {
     }
 
     @Test
+    void helloWorld3AsyncCallsLog() {
+        startTimer();
+        String hello = completableFutureHelloWorld.helloWorld3AsyncCallsLog();
+        timeTaken();
+        assertEquals("HELLO WORLD! HI COMPLETABLEFUTURE", hello);
+    }
+
+    @Test
+    void helloWorld3AsyncCallsLogAsync() {
+        startTimer();
+        String hello = completableFutureHelloWorld.helloWorld3AsyncCallsLogAsync();
+        timeTaken();
+        assertEquals("HELLO WORLD! HI COMPLETABLEFUTURE", hello);
+    }
+
+    @Test
+    void helloWorld3AsyncCallsCustomThreadPool() {
+        startTimer();
+        String hello = completableFutureHelloWorld.helloWorld3AsyncCallsCustomThreadPool();
+        timeTaken();
+        assertEquals("HELLO WORLD! HI COMPLETABLEFUTURE", hello);
+    }
+
+    @Test
+    void helloWorld3AsyncCallsCustomThreadPoolAsync() {
+        startTimer();
+        String hello = completableFutureHelloWorld.helloWorld3AsyncCallsCustomThreadPoolAsync();
+        timeTaken();
+        assertEquals("HELLO WORLD! HI COMPLETABLEFUTURE", hello);
+    }
+
+    @Test
     void helloWorld4AsyncCalls() {
         startTimer();
         String hello = completableFutureHelloWorld.helloWorld4AsyncCalls();
